@@ -6,9 +6,9 @@
 
 | Field            | Value                                |
 | ---------------- | ------------------------------------ |
-| Full Name        | **Amin Tarig Amin Abbas**                 |
+| Full Name        | **Amin Tarig Amin Abbas**            |
 | Project Name     | **SecureRepo AI**                    |
-| GitHub Username  | **AminTariq**           |
+| GitHub Username  | **AminTariq**                         |
 | Challenge Batch  | June–July 2026                       |
 | Training Program | Large Language Models (LLMs) Program |
 | Organization     | [**Edrak for Ai**](https://edrak4ai.com/en) |
@@ -17,12 +17,12 @@
 
 # 📖 Project Overview
 
-**SecureRepo AI** is an AI-powered security reviewer for public Python GitHub repositories. It combines static analysis, RAG, and a fine-tuned open-source LLM to explain security findings and recommend fixes.
+**SecureRepo AI** is an AI-powered first-pass security reviewer for public Python GitHub repositories. It combines Bandit static-analysis evidence, FAISS RAG guidance, and a fine-tuned open-source LLM to produce clear, AI-supported findings and suggested fixes.
 
-I saw security risks growing alongside vibe coding, so I wanted to solve the problem cleanly. I fine-tuned **Qwen3-4B-Instruct-2507** with Unsloth and QLoRA on **1,200 vulnerable and safe Python examples**, then uploaded my trained LoRA adapter to [**Hugging Face**](https://huggingface.co/AminTariq/securerepo-qwen3-4b-lora). I added FAISS RAG and Bandit in Kaggle, validated reports with Pydantic, exposed the backend through FastAPI and ngrok, and connected everything to a Streamlit frontend.
+I saw security risks growing alongside vibe coding, so I wanted to solve the problem cleanly. I first fine-tuned **Qwen3-4B-Instruct-2507** with Unsloth and QLoRA on [**1,200 curated synthetic Python security examples**](dataset/securerepo_train.jsonl)—800 vulnerable and 400 safe—then uploaded the trained LoRA adapter to [**Hugging Face**](https://huggingface.co/AminTariq/securerepo-qwen3-4b-lora). I added FAISS RAG and Bandit in Kaggle, schema-validated the generated reports with Pydantic, exposed the backend through FastAPI and ngrok, and connected it to a Streamlit frontend.
 
 ```text
-GitHub URL → Bandit → RAG → Fine-tuned Qwen → Pydantic → Streamlit report
+GitHub URL → Bandit → FAISS RAG → Fine-tuned Qwen → Pydantic → Streamlit
 ```
 
 SecureRepo AI is designed as a practical first-pass review and learning tool, not a replacement for a professional security audit.
@@ -33,10 +33,9 @@ SecureRepo AI is designed as a practical first-pass review and learning tool, no
 
 * Scans public Python GitHub repositories without executing their code
 * Combines Bandit, RAG, and a fine-tuned open-source LLM
-* Uses a LoRA adapter trained on 1,200 security examples
-* Reports severity, confidence, CWE, OWASP, evidence, and suggested fixes
-* Streams live scan progress from Kaggle to Streamlit
-* Saves scan history and supports downloadable JSON reports
+* Uses a LoRA adapter trained on 1,200 curated synthetic security examples
+* Produces AI-supported findings with severity, confidence, CWE, OWASP, evidence, and suggested fixes
+* Streams live progress to Streamlit, saves scan history, and exports JSON reports
 
 ---
 
@@ -47,7 +46,7 @@ SecureRepo AI is designed as a practical first-pass review and learning tool, no
 | Model | Qwen3-4B-Instruct-2507, Unsloth, QLoRA, PEFT |
 | Security | Bandit, CWE, OWASP |
 | RAG | FAISS, LangChain, Sentence Transformers |
-| Validation | Pydantic |
+| Validation | Pydantic schema validation |
 | Backend | Kaggle GPU, FastAPI, Uvicorn, ngrok |
 | Frontend | Streamlit, Requests, SQLite |
 
@@ -95,22 +94,20 @@ python -m streamlit run app.py
 
 # 🚀 Usage
 
-1. Keep the Kaggle notebook running.
-2. Open the local Streamlit app.
-3. Paste a public GitHub repository URL.
-4. Select the number of Python files to review.
-5. Start the scan and inspect the streamed security report.
-6. Download the final report as JSON if needed.
+1. Keep the Kaggle backend running and open the local Streamlit app.
+2. Paste a public GitHub repository URL and choose how many Python files to review.
+3. Start the scan and review the streamed findings.
+4. Download the final JSON report if needed.
 
 ---
 
 # 📸 Demo
 
-The screenshots below show the complete flow—from opening the workspace to reviewing a validated security report—using the public [Vulpy test repository](https://github.com/fportantier/vulpy).
+The screenshots below show the complete flow—from opening the workspace to reviewing a schema-validated security report—using the public [Vulpy test repository](https://github.com/fportantier/vulpy).
 
-![SecureRepo AI validated security report](assets/screenshots/11-validated-security-report.png)
+![SecureRepo AI schema-validated security report](assets/screenshots/11-validated-security-report.png)
 
-<p align="center"><sub>Validated repository report with a risk score, severity summary, confirmed findings, and downloadable JSON output.</sub></p>
+<p align="center"><sub>Schema-validated repository report with a risk score, severity summary, AI-supported findings, and downloadable JSON output.</sub></p>
 
 <details>
 <summary><strong>1. Access and workspace overview</strong></summary>
@@ -136,11 +133,11 @@ The screenshots below show the complete flow—from opening the workspace to rev
 <table>
   <tr>
     <td align="center"><strong>Configure a public repository scan</strong></td>
-    <td align="center"><strong>Stream vulnerability evidence</strong></td>
+    <td align="center"><strong>Stream AI-supported evidence</strong></td>
   </tr>
   <tr>
     <td><img src="assets/screenshots/03-new-repository-scan.png" alt="Configure a new GitHub repository scan"></td>
-    <td><img src="assets/screenshots/04-live-vulnerability-evidence.png" alt="Live vulnerability evidence streamed during a scan"></td>
+    <td><img src="assets/screenshots/04-live-vulnerability-evidence.png" alt="Live AI-supported security evidence streamed during a scan"></td>
   </tr>
   <tr>
     <td align="center"><strong>Understand the security impact</strong></td>
@@ -151,12 +148,12 @@ The screenshots below show the complete flow—from opening the workspace to rev
     <td><img src="assets/screenshots/06-recommended-fix.png" alt="Recommended security fix and safer replacement code"></td>
   </tr>
   <tr>
-    <td align="center"><strong>Verify the classification</strong></td>
-    <td align="center"><strong>Inspect multiple findings</strong></td>
+    <td align="center"><strong>Review the classification</strong></td>
+    <td align="center"><strong>Inspect multiple AI-supported findings</strong></td>
   </tr>
   <tr>
     <td><img src="assets/screenshots/07-finding-verification.png" alt="CWE OWASP and Bandit verification details"></td>
-    <td><img src="assets/screenshots/08-multiple-findings.png" alt="Multiple validated findings from one repository scan"></td>
+    <td><img src="assets/screenshots/08-multiple-findings.png" alt="Multiple AI-supported findings from one repository scan"></td>
   </tr>
 </table>
 
@@ -189,9 +186,9 @@ The screenshots below show the complete flow—from opening the workspace to rev
 
 # 📈 Results
 
-SecureRepo AI delivers a working end-to-end prototype that scans selected Python files, combines static-analysis evidence with retrieved guidance, generates structured security findings, and streams the validated report to a local dashboard.
+SecureRepo AI is a working end-to-end prototype that combines Bandit evidence, RAG guidance, and a fine-tuned Qwen model to generate AI-supported findings in a schema-validated report.
 
-The project currently supports **public Python repositories**. A clean result means no supported issues were found in the analyzed files and code sections; it does not prove that the entire repository is secure.
+A clean result only means no supported issues were found in the analyzed files and code sections; it does not prove that the repository is secure.
 
 ---
 
@@ -215,4 +212,4 @@ For more information about the challenge, training programs, and upcoming batche
 
 # 📄 License
 
-This project is shared for educational and portfolio purposes.
+Licensed under the [MIT License](LICENSE).
