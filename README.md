@@ -103,6 +103,12 @@ python -m streamlit run app.py
 
 # 📸 Demo
 
+## 🎤 5-Minute Project Presentation
+
+📥 **[Download the SecureRepo AI PowerPoint presentation](presentation/SecureRepo_AI_Presentation.pptx)**
+
+> Presentation file: `presentation/SecureRepo_AI_Presentation.pptx`
+
 The screenshots below show the complete flow—from opening the workspace to reviewing a schema-validated security report—using the public [Vulpy test repository](https://github.com/fportantier/vulpy).
 
 ![SecureRepo AI schema-validated security report](assets/screenshots/11-validated-security-report.png)
